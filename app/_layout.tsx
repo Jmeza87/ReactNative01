@@ -1,37 +1,99 @@
-import { DarkTheme, DefaultTheme, ThemeProvider } from '@react-navigation/native';
-import { useFonts } from 'expo-font';
-import { Stack } from 'expo-router';
-import * as SplashScreen from 'expo-splash-screen';
-import { useEffect } from 'react';
-import 'react-native-reanimated';
+import { Stack } from "expo-router";
+import { Text, View, Image, StyleSheet } from "react-native";
+import { Drawer } from 'expo-router/drawer';
+import Entypo from '@expo/vector-icons/Entypo';
+import CustomDrawerContent from '../components/customDrawerContent';
 
-import { useColorScheme } from '@/hooks/useColorScheme';
-
-// Prevent the splash screen from auto-hiding before asset loading is complete.
-SplashScreen.preventAutoHideAsync();
 
 export default function RootLayout() {
-  const colorScheme = useColorScheme();
-  const [loaded] = useFonts({
-    SpaceMono: require('../assets/fonts/SpaceMono-Regular.ttf'),
-  });
+  return  <Drawer
+  screenOptions={{
+    drawerLabelStyle: {
+      marginLeft: -20,
+    },
+    drawerActiveBackgroundColor: '#7f8c8d',
+    drawerActiveTintColor: 'white',
+    drawerInactiveTintColor: '#2c3e50'
+  }}
+  drawerContent={CustomDrawerContent}
 
-  useEffect(() => {
-    if (loaded) {
-      SplashScreen.hideAsync();
-    }
-  }, [loaded]);
+>
 
-  if (!loaded) {
-    return null;
-  }
+  <Drawer.Screen
+    name="index"
+    options={{
+      drawerLabel: 'Inicio',
+      title: 'Inicio',
+      drawerIcon: ({ size, color }) => (
+        <Entypo name='home' size={size} color={color} />
+      )
+    }}
+  />
 
-  return (
-    <ThemeProvider value={colorScheme === 'dark' ? DarkTheme : DefaultTheme}>
-      <Stack>
-        <Stack.Screen name="(tabs)" options={{ headerShown: false }} />
-        <Stack.Screen name="+not-found" />
-      </Stack>
-    </ThemeProvider>
-  );
+<Drawer.Screen
+    name="laptop"
+    options={{
+      drawerLabel: 'Laptop',
+      title: 'Laptop',
+      drawerIcon: ({ size, color }) => (
+        <Entypo name='laptop' size={size} color={color} />
+      )
+    }}
+  />
+
+<Drawer.Screen
+    name="movil"
+    options={{
+      drawerLabel: 'Movil',
+      title: 'Movil',
+      drawerIcon: ({ size, color }) => (
+        <Entypo name='mobile' size={size} color={color} />
+      )
+    }}
+  />
+
+<Drawer.Screen
+    name="cocina"
+    options={{
+      drawerLabel: 'Cocina',
+      title: 'Cocina',
+      drawerIcon: ({ size, color }) => (
+        <Entypo name='bowl' size={size} color={color} />
+      )
+    }}
+  />
+
+<Drawer.Screen
+    name="deportes"
+    options={{
+      drawerLabel: 'Deportes',
+      title: 'Deportes',
+      drawerIcon: ({ size, color }) => (
+        <Entypo name='sports-club' size={size} color={color} />
+      )
+    }}
+  />
+
+
+<Drawer.Screen
+    name="relojes"
+    options={{
+      drawerLabel: 'Relojes',
+      title: 'Relojes',
+      drawerIcon: ({ size, color }) => (
+        <Entypo name='stopwatch' size={size} color={color} />
+      )
+    }}
+  />
+
+
+
+
+  
+
+</Drawer>
+
+
+
+
 }
